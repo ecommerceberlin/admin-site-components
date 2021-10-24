@@ -7,12 +7,12 @@ const ProfileErrors = ({ errors }) => {
       return null;
     }
     return (
-      <Text variant="body1">
+      <Typography variant="body1">
         Profile errors:{' '}
         {arr.map(field => (
           <strong key={field}>{field}, </strong>
         ))}
-      </Text>
+      </Typography>
     );
   };
 

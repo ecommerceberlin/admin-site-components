@@ -1,12 +1,11 @@
 import {
-Wrapper,
 useDatasource,
 Alert,
 ToolBar
 } from 'eventjuicer-site-components';
 
 
-import Exhibitor from './Exhibitor'
+import Exhibitor from './components/Exhibitor'
 
 import {cateringReal, parkingReal} from './helpers'
 
@@ -55,20 +54,21 @@ sort: sort && sort==="booth"?  "profile.booth": "company.name"
 return (<>
 
 <ToolBar 
-data={data} 
-indexes={[
-["profile", "lname"],
-["profile", "cname"],
-["profile", "booth"],
-["company", "name"]
-]}
-render={(filtered) => filtered.map(exhibitor => <Exhibitor 
-key={exhibitor.id} 
-details={details}
-{...exhibitor} 
-roles={["presenter","service_internal","service_external"]}
-alert={<ExhibitorAlert key={exhibitor.id} {...exhibitor} />}/>)
-} />
+    data={data} 
+    indexes={[
+        ["profile", "lname"],
+        ["profile", "cname"],
+        ["profile", "booth"],
+        ["company", "name"]
+    ]}
+    render={(filtered) => filtered.map(exhibitor => <Exhibitor 
+        key={exhibitor.id} 
+        details={details}
+        {...exhibitor} 
+        roles={["presenter","service_internal","service_external"]}
+        alert={<ExhibitorAlert key={exhibitor.id} {...exhibitor} />}/>)
+    } 
+/>
 
 
 
