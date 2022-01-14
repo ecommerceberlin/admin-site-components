@@ -1,24 +1,28 @@
-import {
-useDatasource,
-Alert,
-ToolBar
-} from 'eventjuicer-site-components';
-
 
 import Exhibitor from './components/Exhibitor'
+import { useExhibitorsListContext } from './ExhibitorsListContext';
+import {processArrayData, isFunction} from 'eventjuicer-site-components'
 
-import {cateringReal, parkingReal} from './helpers'
+const ExhibitorList = ({panel}) => {
 
-const ExhibitorAlert = ({reps, purchases}) => {
-return <Alert type="info" content={<>Catering: <strong>{cateringReal(purchases, reps)}</strong> {` `}
-Parking: <strong>{parkingReal(purchases)}</strong></>} />
+    const {filtered, sort, flags} = useExhibitorsListContext()
+
+    return processArrayData(filtered, {sort}).map(exhibitor => <Exhibitor 
+        key={exhibitor.id} 
+        details={ flags.details }
+        {...exhibitor} 
+        roles={["presenter","service_internal","service_external"]}
+        alert={ isFunction(panel)? panel(exhibitor): null }/>
+    )
+
+
 }
 
-const PageAdminReport = ({sort, details=false}) => {
 
-const data = useDatasource({resource: "report", filters: {
-sort: sort && sort==="booth"?  "profile.booth": "company.name"
-}})
+export default ExhibitorList
+
+
+
 
 
 //parse params!
@@ -49,32 +53,3 @@ sort: sort && sort==="booth"?  "profile.booth": "company.name"
 //     );
 //   };
 
-
-
-return (<>
-
-<ToolBar 
-    data={data} 
-    indexes={[
-        ["profile", "lname"],
-        ["profile", "cname"],
-        ["profile", "booth"],
-        ["company", "name"]
-    ]}
-    render={(filtered) => filtered.map(exhibitor => <Exhibitor 
-        key={exhibitor.id} 
-        details={details}
-        {...exhibitor} 
-        roles={["presenter","service_internal","service_external"]}
-        alert={<ExhibitorAlert key={exhibitor.id} {...exhibitor} />}/>)
-    } 
-/>
-
-
-
-</>)
-
-}
-
-
-export default PageAdminReport;
