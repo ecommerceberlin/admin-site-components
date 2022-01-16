@@ -1,13 +1,18 @@
 
 import Exhibitor from './components/Exhibitor'
 import { useExhibitorsListContext } from './ExhibitorsListContext';
-import {processArrayData, isFunction} from 'eventjuicer-site-components'
+import {processArrayData, isFunction, isEmpty} from 'eventjuicer-site-components'
 
 const ExhibitorList = ({panel}) => {
 
-    const {filtered, sort, flags} = useExhibitorsListContext()
+    const {data, account, filtered, sort, flags} = useExhibitorsListContext()
 
-    return processArrayData(filtered, {sort}).map(exhibitor => <Exhibitor 
+    console.log("account", account)
+
+    const finalData = !isEmpty(account) ? data: filtered
+    const filter = !isEmpty(account)? (item)=>item.account == account: null
+    
+    return processArrayData(finalData, {sort, filter}).map(exhibitor => <Exhibitor 
         key={exhibitor.id} 
         details={ flags.details }
         {...exhibitor} 

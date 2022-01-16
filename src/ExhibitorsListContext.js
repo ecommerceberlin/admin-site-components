@@ -29,13 +29,11 @@ const useToggler = (initialState) => {
 const ExhibitorsListContext = ({resource="report", children, defaultSort = "company.name"}) => {
 
     const [sort, setSort] = useState(defaultSort)
+    const [account, setAccount] = useState(null)
     // const [flags, toggleFlag] = useState([])
     const [flags, toggleFlag] = useToggler({details: false})
     const [filtered, setFiltered] = useState([])
     const data = useDatasource({resource, filters: {sort: defaultSort}})
-
-  
-    console.log("flags stage", flags)
 
     useEffect(()=>{
         if(isEmpty(filtered)){
@@ -43,10 +41,17 @@ const ExhibitorsListContext = ({resource="report", children, defaultSort = "comp
         }
     }, [data])
 
-    return (<ExhbitorsListContextContainer.Provider value={{data, filtered, flags, sort, setSort, setFiltered, toggleFlag}}>{children}</ExhbitorsListContextContainer.Provider>)
+    return (<ExhbitorsListContextContainer.Provider value={{
+        data, 
+        filtered, 
+        flags, 
+        account,
+        sort, 
+        setSort, 
+        setFiltered,
+        setAccount, 
+        toggleFlag}}>{children}</ExhbitorsListContextContainer.Provider>)
 }
-
-//sort && sort==="booth"?  "profile.booth": "company.name"
 
 export const useExhibitorsListContext = () => useContext(ExhbitorsListContextContainer)
 
