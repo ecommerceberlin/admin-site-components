@@ -6,14 +6,21 @@ import {
     Grid
 } from 'eventjuicer-site-components'
 
+import {useExhibitorContext} from '../ExhibitorContext'
 
 const clear = (str) => str? str.replace(/resources.upgrades./gi, ''): "";
 const findName = (data) => data.translation_asset_id && data.translation_asset_id.length>2 ? data.translation_asset_id : data.___name;
 
 const Item = ({data}) => (<Typography variant="body1"> <strong>{data.quantity} x </strong> {clear(findName(data))}</Typography>)
 
-const Purchases = ({ purchases, roles }) => {
-   
+const Purchases = ({ active, roles }) => {
+    const {data, id} = useExhibitorContext()
+    const {purchases} = data
+
+    if(!active){
+        return null
+    }
+
     const filtered = purchases.filter(item => roles && Array.isArray(roles) && roles.includes(item.role));
     const internal = filtered.filter(item => item.role === "service_internal")
     const external = filtered.filter(item => item.role === "service_external")

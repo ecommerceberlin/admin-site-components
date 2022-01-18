@@ -8,7 +8,8 @@ import { deepOrange } from '@material-ui/core/colors';
 import IconButton from '@material-ui/core/IconButton';
 import SortByAlphaIcon from '@material-ui/icons/SortByAlpha';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-import MessageIcon from '@material-ui/icons/Message';
+import AssessmentIcon from '@material-ui/icons/Assessment';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
 // import FormHelperText from '@material-ui/core/FormHelperText';
@@ -38,14 +39,13 @@ const Switcher = () => {
     const {data, sort, flags, account, setSort, toggleFlag, setAccount} = useExhibitorsListContext()
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
-    const {details} = flags
     const accountManagers = [...new Set(data.map(item => item.account))]
 
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
       };
     
-    const handleClose = (am) => {
+    const handleClose = (am = null) => {
         setAccount(am)
         setAnchorEl(null);
     };
@@ -59,12 +59,17 @@ const Switcher = () => {
     <LocationOnIcon color={sort == "profile.booth" ? "secondary": "action"} />  
     </IconButton>    
 
-    <IconButton color="inherit" onClick={() => toggleFlag("details") } >
-    <MessageIcon color={details ? "secondary": "action"}/>  
+    <IconButton color="inherit" onClick={() => toggleFlag("assessment") } >
+    <AssessmentIcon color={flags.assessment ? "secondary": "action"}/>  
     </IconButton>    
 
+    <IconButton color="inherit" onClick={() => toggleFlag("assignment") } >
+    <AssignmentIcon color={flags.assignment ? "secondary": "action"}/>  
+    </IconButton>    
+
+
     <IconButton onClick={handleMenu} color="inherit">
-    {!isEmpty(account) ? <Avatar className={classes.account}>{account}</Avatar>: <AccountCircle color="action" /> }
+    {!isEmpty(account) ? <Avatar className={classes.account}>{account || null}</Avatar>: <AccountCircle color="action" /> }
     </IconButton>
 
     <Menu
@@ -80,9 +85,9 @@ const Switcher = () => {
             horizontal: 'right',
         }}
         open={open}
-        onClose={handleClose}
+        onClose={() => handleClose()}
     >
-        <MenuItem onClick={() => handleClose(null) }>SHOW ALL</MenuItem>
+        <MenuItem onClick={() => handleClose()}>SHOW ALL</MenuItem>
         {accountManagers.map(am => <MenuItem key={am} onClick={() => handleClose(am) }>{am}</MenuItem>)}
       
     </Menu>                

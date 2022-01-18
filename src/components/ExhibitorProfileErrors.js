@@ -1,8 +1,18 @@
 import React from 'react';
 import {Typography} from 'eventjuicer-site-components'
+import {useExhibitorContext} from '../ExhibitorContext'
 
-const ProfileErrors = ({ errors }) => {
-    const arr = Object.keys(errors);
+
+const ProfileErrors = ({active}) => {
+
+  const {id, data} = useExhibitorContext()
+  const {errors} = data
+
+  if(!active){
+    return null
+  }
+
+  const arr = Object.keys(errors);
     if (!arr.length) {
       return null;
     }

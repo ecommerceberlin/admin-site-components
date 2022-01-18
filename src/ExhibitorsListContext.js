@@ -1,5 +1,5 @@
 import React, {useState, useReducer, useContext, useEffect, useCallback} from 'react'
-import {useDatasource, isEmpty, processArrayData} from 'eventjuicer-site-components'
+import {useDatasource, isEmpty, keyBy} from 'eventjuicer-site-components'
 
 const ExhbitorsListContextContainer = React.createContext({
     data: [],
@@ -9,7 +9,6 @@ const ExhbitorsListContextContainer = React.createContext({
     // setSort: () => {}
 });
 
-
 function reducer(state, action) {
     if(action.type in state){
         return {...state, [action.type]: !state[action.type]}
@@ -18,7 +17,7 @@ function reducer(state, action) {
     }
 }
 
-const useToggler = (initialState) => {
+const useToggler = (initialState = {}) => {
     const [state, dispatchToggleFlag] = useReducer(reducer, initialState);
     const toggleFlag = useCallback(
         (type, payload) => dispatchToggleFlag({type, payload})
@@ -30,8 +29,7 @@ const ExhibitorsListContext = ({resource="report", children, defaultSort = "comp
 
     const [sort, setSort] = useState(defaultSort)
     const [account, setAccount] = useState(null)
-    // const [flags, toggleFlag] = useState([])
-    const [flags, toggleFlag] = useToggler({details: false})
+    const [flags, toggleFlag] = useToggler()
     const [filtered, setFiltered] = useState([])
     const data = useDatasource({resource, filters: {sort: defaultSort}})
 
@@ -43,6 +41,7 @@ const ExhibitorsListContext = ({resource="report", children, defaultSort = "comp
 
     return (<ExhbitorsListContextContainer.Provider value={{
         data, 
+        dataById: keyBy(data, "id"),
         filtered, 
         flags, 
         account,

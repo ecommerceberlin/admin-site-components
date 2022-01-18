@@ -2,14 +2,13 @@
 import ExhbitorsListContext from './ExhibitorsListContext';
 import ExhibitorsListToolbar from './ExhibitorsListToolbar';
 import ExhibitorsList from './ExhibitorsList';
-import ExhibitorDetails from './ExhibitorDetails';
 
-const WidgetExhibitorList = () => {
+const WidgetExhibitorList = ({roles=["presenter","service_internal","service_external"]}) => {
 
     return (
         <ExhbitorsListContext>
         <ExhibitorsListToolbar />
-        <ExhibitorsList panel={(exhibitor) => <ExhibitorDetails key={exhibitor.id} {...exhibitor} />} />
+        <ExhibitorsList roles={roles}  />
         </ExhbitorsListContext>
     )
 

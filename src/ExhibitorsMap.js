@@ -1,11 +1,7 @@
 import React, {useState, useCallback, useEffect} from 'react'
 
 import {
-  connect,
-  reduxWrapper,
-  configure,
   Bookingmap,
-  Wrapper,
   useDatasource,
   isEmpty,
   FormControlLabel,
@@ -15,7 +11,6 @@ import {
 } from 'eventjuicer-site-components';
 
 import {clear, findName} from './helpers'
-
 
 
 const ServiceSelector = ({id, checked, name, onChange, color="primary"}) => (

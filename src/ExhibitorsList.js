@@ -1,24 +1,25 @@
 
 import Exhibitor from './components/Exhibitor'
 import { useExhibitorsListContext } from './ExhibitorsListContext';
-import {processArrayData, isFunction, isEmpty} from 'eventjuicer-site-components'
+import {processArrayData, isEmpty} from 'eventjuicer-site-components'
+import ExhibitorContext from './ExhibitorContext'
+import ExhibitorRealAssignments from './components/ExhibitorRealAssignments';
+import ExhibitorProfileErrors from './components/ExhibitorProfileErrors';
+import ExhibitorPurchases from './components/ExhibitorPurchases';
 
-const ExhibitorList = ({panel}) => {
+
+const ExhibitorList = ({roles}) => {
 
     const {data, account, filtered, sort, flags} = useExhibitorsListContext()
-
-    console.log("account", account)
-
     const finalData = !isEmpty(account) ? data: filtered
     const filter = !isEmpty(account)? (item)=>item.account == account: null
-    
-    return processArrayData(finalData, {sort, filter}).map(exhibitor => <Exhibitor 
-        key={exhibitor.id} 
-        details={ flags.details }
-        {...exhibitor} 
-        roles={["presenter","service_internal","service_external"]}
-        alert={ isFunction(panel)? panel(exhibitor): null }/>
-    )
+
+    return processArrayData(finalData, {sort, filter}).map(({id}) => <ExhibitorContext  key={id} id={id}>
+       <Exhibitor />
+       <ExhibitorProfileErrors active={flags.assessment} />
+       <ExhibitorRealAssignments active={flags.assignment} />
+       <ExhibitorPurchases roles={roles} active={flags.assignment} />
+      </ExhibitorContext>)
 
 
 }

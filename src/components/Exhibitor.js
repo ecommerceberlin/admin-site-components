@@ -1,6 +1,6 @@
 import React from 'react';
-import ProfileErrors from './ProfileErrors'
-import Purchases from './Purchases'
+ 
+
 import {
   Typography,
   Grid,
@@ -8,8 +8,10 @@ import {
   useDialog,
   Wrapper,
   map,
-  Bookingmap
+  Bookingmap,
+  isEmpty
 } from 'eventjuicer-site-components'
+import { useExhibitorContext } from '../ExhibitorContext';
 
 
 const defaultProps = {
@@ -23,26 +25,27 @@ const defaultProps = {
 }
 
 const Exhibitor = ({setting, ...props}) => {
+
+    const dialog = useDialog()
+    const {data, id} = useExhibitorContext()
+
+    if(isEmpty(data)){
+      return null
+    }
+
+    const {account, company, profile, errors, reps, party, meetups, purchases} = data
+
     const {
-      account,
-      company,
-      profile,
-      errors,
-      purchases,
-      reps,
-      party,
-      meetups,
       show_mobilepass,
       show_partyticket,
       mapSetting,
-      roles,
       alert,
       details
     } = Object.assign({}, defaultProps, props);
 
     const { name, password, keywords, lang } = company;
     const { booth, fname, lname, phone, cname } = profile;
-    const dialog = useDialog()
+   
 
     const handleDialog = (e) => {
       e.preventDefault()
@@ -79,8 +82,7 @@ const Exhibitor = ({setting, ...props}) => {
         <Grid item>Meetups: {meetups}</Grid>
         </Grid>
     
-        <ProfileErrors errors={errors} />
-        <Purchases purchases={purchases} roles={roles} />
+       
         </>: null}
 
       </Box>
