@@ -71,7 +71,7 @@ const Exhibitor = ({setting, ...props}) => {
         <Typography variant="h6"><a href="#" onClick={handleDialog}>{selectedBoothNames()}</a></Typography>
         </Grid>
         <Grid item>
-        <Typography variant="subtitle1">{cname}, {fname} {lname} {phone}</Typography>
+        <Typography variant="subtitle1">{cname}</Typography>
         </Grid>
         </Grid>
 
