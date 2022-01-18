@@ -19,16 +19,23 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Avatar from '@material-ui/core/Avatar';
 
+
 const useStyles = makeStyles((theme) => ({
+ 
   account: {
-    color: theme.palette.getContrastText(deepOrange[500]),
-    backgroundColor: deepOrange[500],
     width: theme.spacing(4),
     height: theme.spacing(4),
     fontWeight: 900,
-    fontSize: 14
+    fontSize: 14,
+    color: theme.palette.getContrastText(deepOrange[500]),
+    backgroundColor: deepOrange[500],
   },
-
+  flagged: {
+    color: deepOrange[500],
+  },
+  unflagged: {
+    color: "#999999",
+  }
  
 }));
 
@@ -52,24 +59,24 @@ const Switcher = () => {
    
     return (<>
     <IconButton color="inherit" onClick={() => setSort("company.name")}>
-    <SortByAlphaIcon color={sort == "company.name" ? "secondary": "action"} /> 
+    <SortByAlphaIcon className={sort == "company.name" ?  classes.flagged: classes.unflagged} /> 
     </IconButton>
 
     <IconButton color="inherit" onClick={() => setSort("profile.booth")} >
-    <LocationOnIcon color={sort == "profile.booth" ? "secondary": "action"} />  
+    <LocationOnIcon className={sort == "profile.booth" ?  classes.flagged: classes.unflagged} />  
     </IconButton>    
 
     <IconButton color="inherit" onClick={() => toggleFlag("assessment") } >
-    <AssessmentIcon color={flags.assessment ? "secondary": "action"}/>  
+    <AssessmentIcon className={flags.assessment? classes.flagged: classes.unflagged} />  
     </IconButton>    
 
     <IconButton color="inherit" onClick={() => toggleFlag("assignment") } >
-    <AssignmentIcon color={flags.assignment ? "secondary": "action"}/>  
+    <AssignmentIcon className={flags.assignment? classes.flagged: classes.unflagged} />  
     </IconButton>    
 
 
     <IconButton onClick={handleMenu} color="inherit">
-    {!isEmpty(account) ? <Avatar className={classes.account}>{account || null}</Avatar>: <AccountCircle color="action" /> }
+    {!isEmpty(account) ? <Avatar className={classes.account}>{account || null}</Avatar>: <AccountCircle className={classes.unflagged} /> }
     </IconButton>
 
     <Menu
@@ -115,7 +122,6 @@ const ExhibitorsListToolbar = () => {
     ]} buttons={
     <div style={{display: 'flex'}}>
     <Switcher />
-    {/* <AccountManager /> */}
     </div>} onSearch={handleSetFiltered}  /></div>)
 
 }
