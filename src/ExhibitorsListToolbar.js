@@ -46,7 +46,7 @@ const Switcher = () => {
     const {data, sort, flags, account, setSort, toggleFlag, setAccount} = useExhibitorsListContext()
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
-    const accountManagers = [...new Set(data.map(item => item.account))]
+    const accountManagers = [...new Set(data.map(item => item.account))].sort()
 
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
