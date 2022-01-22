@@ -1,6 +1,6 @@
 import React from 'react';
 import {Typography} from 'eventjuicer-site-components'
-import {useExhibitorContext} from '../ExhibitorContext'
+import {useExhibitorContext} from './ExhibitorContext'
 
 
 const ProfileErrors = ({active}) => {

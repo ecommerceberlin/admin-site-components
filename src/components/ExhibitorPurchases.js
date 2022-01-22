@@ -6,7 +6,7 @@ import {
     Grid
 } from 'eventjuicer-site-components'
 
-import {useExhibitorContext} from '../ExhibitorContext'
+import {useExhibitorContext} from './ExhibitorContext'
 
 const clear = (str) => str? str.replace(/resources.upgrades./gi, ''): "";
 const findName = (data) => data.translation_asset_id && data.translation_asset_id.length>2 ? data.translation_asset_id : data.___name;

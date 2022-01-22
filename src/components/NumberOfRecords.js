@@ -1,4 +1,4 @@
-import { useExhibitorsListContext } from "../ExhibitorsListContext";
+import { useExhibitorsListContext } from "./ExhibitorsListContext";
 import {Alert} from 'eventjuicer-site-components'
 import Typography from '@material-ui/core/Typography'
 

@@ -1,7 +1,7 @@
 
 import { Alert } from 'eventjuicer-site-components';
-import {cateringReal, parkingReal} from '../helpers'
-import {useExhibitorContext} from '../ExhibitorContext'
+import {cateringReal, parkingReal} from './helpers'
+import {useExhibitorContext} from './ExhibitorContext'
 
 const ExhibitorDetails = ({active}) => {
     const {data, id} = useExhibitorContext()

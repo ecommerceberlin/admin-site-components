@@ -29,3 +29,21 @@ export const selectedBoothNames = (purchases) => map(purchases, 'formdata.ti').f
 
 export const clear = (str) => str? str.replace(/resources.upgrades./gi, ''): "";
 export const findName = (data) => data.translation_asset_id && data.translation_asset_id.length>2 ? data.translation_asset_id : data.___name;
+
+export const findBoothsId = (source) => {
+    let booths = [];
+    source.forEach(exhibitor => {
+        exhibitor.purchases.filter(ticket => ticket.formdata && "id" in ticket.formdata)
+        .map(ticket => ticket.formdata.id)
+        .forEach(formdata => booths.push(formdata))    
+    })
+    return booths
+}
+
+export const findExhibitorsByTicketIds = (data = [], checked=[]) => {
+    const exhibitorWithExternalServices = data.filter(exhibitor => exhibitor.purchases.some(ticket => checked.includes(ticket.id)))
+    return findBoothsId(exhibitorWithExternalServices);
+}
+
+
+export const filterExhibitorByTicketsIds = (item = {}, checked=[]) => item.purchases.some(ticket => checked.includes(ticket.id))
