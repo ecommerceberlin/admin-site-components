@@ -36,9 +36,7 @@ const ServiceSelector = ({id, name, color="primary"}) => {
       name={name}
       color={color}
       />
-    }
-    label={name}
-    />)
+    } label={name} />)
 
 }
 
