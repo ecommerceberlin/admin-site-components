@@ -16,7 +16,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Avatar from '@material-ui/core/Avatar';
 import useStyles from './styles'
-import ExhibitorExternalServices from './ExhibitorExternalServices';
+import ExhibitorListServices from './ExhibitorListServices';
 
 
 
@@ -123,7 +123,7 @@ const ExhibitorsListToolbar = ({switcher=true}) => {
     {switcher && <Switcher />}
     <AccountManagers />
     </div>} onSearch={setFiltered}  />
-    <ExhibitorExternalServices />
+    <ExhibitorListServices />
     </div>)
 
 }

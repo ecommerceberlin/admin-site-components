@@ -4,7 +4,7 @@ import {
   FormControlLabel,
   Checkbox,
   get,
-  Box
+  Grid
 } from 'eventjuicer-site-components';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,9 +15,7 @@ import { useExhibitorsListContext, useExhibitorsListUpdaterContext } from './Exh
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
+  
   }
 }))
 
@@ -41,13 +39,13 @@ const ServiceSelector = ({id, name, color="primary"}) => {
 }
 
 
-const ExternalServices = () => {
+const ExhibitorListServices = () => {
 
   const classes = useStyles()
   const tickets = useDatasource({resource: "tickets", filters: {
     filter: ticket => ticket.role === "service_external"
   }})
-  return <Box p={3} className={classes.root}>{tickets.map(ticket => <ServiceSelector key={ticket.id} id={ticket.id} name={clear(get(ticket, "names.pl"))}  />)}</Box>
+  return <Grid container alignItems="center" justifyContent="center" className={classes.root}>{tickets.map(ticket => <Grid item key={ticket.id}><ServiceSelector  id={ticket.id} name={clear(get(ticket, "names.pl"))}  /></Grid>)}</Grid>
 }
 
-export default React.memo(ExternalServices)
+export default React.memo(ExhibitorListServices)

@@ -20,38 +20,35 @@ const findByPartialName = (arr, name) => arr.find(item => item.includes(name))
  
 const ExhibitorServicesIcons = ( ) => {
 
-    const {id, data} = useExhibitorContext()
+    const {id, data, services} = useExhibitorContext()
     const classes = useStyles()
 
     if(isEmpty(data)) return null
-
-    const {purchases} = data
-    const ticket_names = purchases.filter(item => item.role.includes("service")).map(item => item.translation_asset_id || item.___name)
-
+    
     const icons = []
 
-    if(findByPartialName(ticket_names, "display")){
-        icons.push( <TvIcon className={classes.icon} />)
+    if(findByPartialName(services, "display")){
+        icons.push( <TvIcon key="a" className={classes.icon} />)
     }
 
-    if(findByPartialName(ticket_names, "flooring") || findByPartialName(ticket_names, "carpet")){
-        icons.push( <TextureIcon className={classes.icon} />)
+    if(findByPartialName(services, "flooring") || findByPartialName(services, "carpet")){
+        icons.push( <TextureIcon key="b" className={classes.icon} />)
     }
 
-    if(findByPartialName(ticket_names, "fullprint") || findByPartialName(ticket_names, "osb")){
-        icons.push( <StoreIcon className={classes.icon} />)
+    if(findByPartialName(services, "fullprint") || findByPartialName(services, "osb")){
+        icons.push( <StoreIcon key="c" className={classes.icon} />)
     }
 
-    if(findByPartialName(ticket_names, "electricity")){
-        icons.push( <PowerIcon className={classes.icon} />)
+    if(findByPartialName(services, "electricity")){
+        icons.push( <PowerIcon key="d" className={classes.icon} />)
     }
 
-    if(findByPartialName(ticket_names, "chair")){
-        icons.push( <EventSeatIcon className={classes.icon} />)
+    if(findByPartialName(services, "chair")){
+        icons.push( <EventSeatIcon key="e" className={classes.icon} />)
     }
 
-    if(findByPartialName(ticket_names, "rack")){
-        icons.push( <CategoryIcon className={classes.icon}  />)
+    if(findByPartialName(services, "rack")){
+        icons.push( <CategoryIcon key="f" className={classes.icon}  />)
     }
 
 
