@@ -12,6 +12,18 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: deepOrange[500],
     },
 
+    accountList: {
+      width: theme.spacing(3),
+      height: theme.spacing(3),
+      fontWeight: 900,
+      fontSize: 10,
+      color: theme.palette.getContrastText(deepOrange[500]),
+      backgroundColor: deepOrange[500],
+    },
+
+    icon: {
+      marginRight: 10
+    },
     
     flagged: {
       color: deepOrange[500],

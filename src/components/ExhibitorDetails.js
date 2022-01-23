@@ -8,12 +8,16 @@ import {
   map,
   Bookingmap,
   isEmpty,
-  Button
+  // Button
 } from 'eventjuicer-site-components'
 import { useExhibitorContext } from './ExhibitorContext';
+import ExhibitorServicesIcons from './ExhibitorServicesIcons'
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import Avatar from '@material-ui/core/Avatar';
 import useStyles from './styles';
+import PersonIcon from '@material-ui/icons/Person';
+import Badge from '@material-ui/core/Badge';
+import Button from '@material-ui/core/Button';
 
 const defaultProps = {
 
@@ -52,20 +56,30 @@ const ExhibitorDetails = ({setting, ...props}) => {
     }
 
     return (
-      <Box mb={2}>
+      <Box mb={2} mt={1} ml={5}>
 
-        <Grid container spacing={3}>
+        <Grid container spacing={3} alignItems="center">
             <Grid item>
-                <Button size="large" startIcon={ <LocationOnIcon /> } onClick={handleDialog}>{selectedBoothNames()}</Button>
+                <Button size="medium" variant="outlined" startIcon={ <LocationOnIcon /> } onClick={handleDialog}>{selectedBoothNames()}</Button>
             </Grid>
             <Grid item>
-            <Grid item>
-                {reps}
-            </Grid>
+          
             </Grid>
             <Grid item>
-                <Avatar className={classes.account}>{account}</Avatar>
+                <Avatar className={classes.accountList}>{account}</Avatar>
             </Grid>
+
+            <Grid item>
+                <Badge showZero badgeContent={reps} color={reps>0? "primary": "error"}>
+                <PersonIcon />
+                </Badge>
+            </Grid>
+
+            <Grid item>
+              <ExhibitorServicesIcons />
+           
+            </Grid>
+
         </Grid>
       
         {/* <Typography variant="h6">

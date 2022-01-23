@@ -1,13 +1,15 @@
-import { useExhibitorsListContext } from "./ExhibitorsListContext";
+import { useData } from "./ExhibitorsListContext";
 import {Alert} from 'eventjuicer-site-components'
-import Typography from '@material-ui/core/Typography'
 
+const NumberOfRecords = ({show_when_filtered = false}) => {
 
-const NumberOfRecords = ({count}) => {
+    const {items, isFiltered} = useData()
 
-    const {data} = useExhibitorsListContext()
- 
- return ( <Alert variant="filled" type="info" content={ `${count} record(s) found`} />)
+    if(isFiltered && show_when_filtered){
+
+    }
+
+ return ( <Alert variant="filled" type="info" content={ `${items.length} record(s) found`} />)
 
 
 }

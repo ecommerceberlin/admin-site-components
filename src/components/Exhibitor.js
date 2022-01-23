@@ -9,16 +9,7 @@ import {
 import { useExhibitorContext } from './ExhibitorContext';
 
 
-const defaultProps = {
-
-  show_mobilepass: false,
-  show_partyticket: false,
-  mapSetting: "bookingmap",
-  roles: [],
-  alert: null,
-  details: false
-}
-
+ 
 const Exhibitor = ({setting, ...props}) => {
 
     const dialog = useDialog()
@@ -34,7 +25,7 @@ const Exhibitor = ({setting, ...props}) => {
     const { booth, fname, lname, phone, cname } = profile;
 
     return (
-      <Box mt={2}>
+    
 
         <Grid container spacing={2} alignItems="flex-end">
         <Grid item>
@@ -45,7 +36,7 @@ const Exhibitor = ({setting, ...props}) => {
         </Grid>
         </Grid>
       
-      </Box>
+
     );
   };
   

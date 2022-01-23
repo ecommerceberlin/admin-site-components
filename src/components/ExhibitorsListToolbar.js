@@ -90,13 +90,13 @@ const Switcher = () => {
     <LocationOnIcon className={sort == "profile.booth" ?  classes.flagged: classes.unflagged} />  
     </IconButton>    
 
-    <IconButton color="inherit" onClick={() => toggleFlag("assessment") } >
+    {/* <IconButton color="inherit" onClick={() => toggleFlag("assessment") } >
     <AssessmentIcon className={flags.assessment? classes.flagged: classes.unflagged} />  
     </IconButton>    
 
     <IconButton color="inherit" onClick={() => toggleFlag("assignment") } >
     <AssignmentIcon className={flags.assignment? classes.flagged: classes.unflagged} />  
-    </IconButton>    
+    </IconButton>     */}
 
   
               

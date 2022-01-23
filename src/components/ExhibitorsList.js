@@ -1,14 +1,14 @@
 import {useEffect} from 'react'
 import Exhibitor from './Exhibitor'
 import { useExhibitorsListContext, useData } from './ExhibitorsListContext';
-import { Grid } from 'eventjuicer-site-components'
+import { Grid, Box } from 'eventjuicer-site-components'
 import ExhibitorContext from './ExhibitorContext'
 import ExhibitorRealAssignments from './ExhibitorRealAssignments';
 import ExhibitorProfileErrors from './ExhibitorProfileErrors';
 import ExhibitorPurchases from './ExhibitorPurchases';
-import NumberOfRecords from './NumberOfRecords';
 import ExhibitorPerformance from './ExhibitorPerformance'
 import ExhibitorDetails from './ExhibitorDetails'
+import ActionButtons from './ActionButtons';
 
 
 
@@ -18,10 +18,18 @@ const ExhibitorList = ({roles}) => {
     const {items} = useData();
 
     return (<div>
-       <NumberOfRecords count={items.length} />{items.map(({id}) => <ExhibitorContext  key={id} id={id}>
-       <Exhibitor />
-       <ExhibitorDetails />
-
+      {items.map(({id}) => <ExhibitorContext  key={id} id={id}>
+    
+      <Box mb={4}>
+      <Grid container justifyContent="space-between" alignItems="center">
+           <Grid item>
+               <Exhibitor />
+                <ExhibitorDetails />
+            </Grid>
+            <Grid item>
+                <ActionButtons />
+            </Grid>
+        </Grid>
        <Grid container>
            <Grid item>
                <ExhibitorPerformance active={flags.assessment} />
@@ -32,7 +40,7 @@ const ExhibitorList = ({roles}) => {
                 <ExhibitorPurchases roles={roles} active={flags.assignment} />
            </Grid>
        </Grid>
-      
+       </Box>
     
       </ExhibitorContext>)}</div>)
 
