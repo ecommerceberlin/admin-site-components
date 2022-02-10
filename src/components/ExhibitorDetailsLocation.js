@@ -6,9 +6,9 @@ import {
   useDialog,
   Wrapper,
   map,
-  Bookingmap,
   isEmpty,
   // Button
+  Bookingmap
 } from 'eventjuicer-site-components'
 import { useExhibitorContext } from './ExhibitorContext';
 import ExhibitorServicesIcons from './ExhibitorDetailsServices'
@@ -18,6 +18,7 @@ import useStyles from './styles';
 import PersonIcon from '@material-ui/icons/Person';
 import Badge from '@material-ui/core/Badge';
 import Button from '@material-ui/core/Button';
+import BoothAdmin from './BoothAdmin'
 
 const defaultProps = {
 
@@ -47,7 +48,7 @@ const ExhibitorDetails = ({setting, ...props}) => {
       e.preventDefault()
       dialog({
         title: `Location for ${name}`,
-        content: <Wrapper><Bookingmap setting={mapSetting} marked={boothIds} /></Wrapper>,
+        content: <Wrapper><Bookingmap booth={BoothAdmin} setting={mapSetting} marked={boothIds} /></Wrapper>,
         width: "xl"
       })
     }
