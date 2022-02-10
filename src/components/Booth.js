@@ -8,6 +8,7 @@ import {
   useDispatch,
   makeStyles
 } from 'eventjuicer-site-components'
+import BoothDialog from './BoothDialog';
 
 const useStyles = makeStyles(boothStyles)
 
@@ -20,17 +21,14 @@ const Booth = ({marked=false}) => {
     zoom,
     setting, 
     selected, 
-    sold,
-    hold,
-    unavailable,
-    blocked,
     styleName,
     sizes,
     name,
     xy,
     id,
     g,
-    ti
+    ti,
+    participant_id
   } = useBoothContext()
 
   const onBoothClick = () => {
@@ -38,7 +36,7 @@ const Booth = ({marked=false}) => {
 
     dispatch(dialogShow({
       title: '', //will be overwritten....
-      content:  <div>asadasd</div>, //<BoothDialog setting={setting} boothId={id} groupId={g} label={ti} styleName={styleName} />,
+      content:  <BoothDialog participant_id={participant_id} />, //<BoothDialog setting={setting} boothId={id} groupId={g} label={ti} styleName={styleName} />,
       buttons: []
     }));
 

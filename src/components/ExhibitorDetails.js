@@ -5,48 +5,38 @@ import {
   isEmpty
 } from 'eventjuicer-site-components'
 import { useExhibitorContext } from './ExhibitorContext';
-import ExhibitorDetailsServices from './ExhibitorDetailsServices'
-import Avatar from '@material-ui/core/Avatar';
-import useStyles from './styles';
-import PersonIcon from '@material-ui/icons/Person';
-import Badge from '@material-ui/core/Badge';
-import ExhibitorDetailsLocation from './ExhibitorDetailsLocation'
 
+import ExhibitorLocation from './ExhibitorLocation'
+import ExhibitorAccount from './ExhibitorAccount';
+import ExhibitorServices from './ExhibitorServices'
+import ExhibitorReps from './ExhibitorReps'
 
 const ExhibitorDetails = () => {
 
-    const classes = useStyles()
     const {data, id,} = useExhibitorContext()
 
     if(isEmpty(data)){
       return null
     }
-
-    const {account, reps} = data
   
     return (
       <Box mb={2} mt={1} ml={5}>
-
         <Grid container spacing={3} alignItems="center">
             <Grid item>
-               <ExhibitorDetailsLocation />
+               <ExhibitorLocation />
             </Grid>
             {/* <Grid item>
-          
             </Grid> */}
             <Grid item>
-                <Avatar className={classes.accountList}>{account}</Avatar>
+                <ExhibitorAccount />
             </Grid>
 
             <Grid item>
-                <Badge showZero badgeContent={reps} color={reps>0? "primary": "error"}>
-                <PersonIcon />
-                </Badge>
+              <ExhibitorReps />
             </Grid>
 
             <Grid item>
-              <ExhibitorDetailsServices />
-           
+              <ExhibitorServices />
             </Grid>
 
         </Grid>
@@ -56,8 +46,7 @@ const ExhibitorDetails = () => {
 
         </Typography> */}
 
-       
-
+    
       </Box>
     );
   };

@@ -11,14 +11,11 @@ import {
   Bookingmap
 } from 'eventjuicer-site-components'
 import { useExhibitorContext } from './ExhibitorContext';
-import ExhibitorServicesIcons from './ExhibitorDetailsServices'
+
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-import Avatar from '@material-ui/core/Avatar';
-import useStyles from './styles';
-import PersonIcon from '@material-ui/icons/Person';
-import Badge from '@material-ui/core/Badge';
 import Button from '@material-ui/core/Button';
-import BoothAdmin from './BoothAdmin'
+import BoothAdmin from './Booth'
+import useStyles from './styles';
 
 const defaultProps = {
 
@@ -30,7 +27,7 @@ const defaultProps = {
   details: false
 }
 
-const ExhibitorDetails = ({setting, ...props}) => {
+const ExhibitorLocation = ({setting, ...props}) => {
 
     const classes = useStyles()
     const dialog = useDialog()
@@ -59,4 +56,4 @@ const ExhibitorDetails = ({setting, ...props}) => {
   };
   
 
-export default ExhibitorDetails;
+export default ExhibitorLocation;

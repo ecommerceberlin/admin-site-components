@@ -18,7 +18,7 @@ import CategoryIcon from '@material-ui/icons/Category';
 
 const findByPartialName = (arr, name) => arr.find(item => item.includes(name))
  
-const ExhibitorServicesIcons = ( ) => {
+const ExhibitorServices = ( ) => {
 
     const {id, data, services} = useExhibitorContext()
     const classes = useStyles()
@@ -39,7 +39,7 @@ const ExhibitorServicesIcons = ( ) => {
         icons.push( <StoreIcon key="c" className={classes.icon} />)
     }
 
-    if(findByPartialName(services, "electricity")){
+    if(findByPartialName(services, "electricity") || findByPartialName(services, "highvoltage")){
         icons.push( <PowerIcon key="d" className={classes.icon} />)
     }
 
@@ -56,4 +56,4 @@ const ExhibitorServicesIcons = ( ) => {
 
 }
 
-export default ExhibitorServicesIcons
+export default ExhibitorServices

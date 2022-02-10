@@ -3,16 +3,13 @@ import {
   Typography,
   Grid,
   Box,
-  useDialog,
   isEmpty
 } from 'eventjuicer-site-components'
 import { useExhibitorContext } from './ExhibitorContext';
 
-
  
 const Exhibitor = ({setting, ...props}) => {
 
-    const dialog = useDialog()
     const {data, id} = useExhibitorContext()
 
     if(isEmpty(data)){

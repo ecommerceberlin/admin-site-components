@@ -25,7 +25,7 @@ const useToggler = (initialState = {}) => {
 }
 
 
-const ExhibitorsDataContext = ({resource="report", defaultSort, children}) => {
+export const ExhibitorsDataContext = ({resource="report", defaultSort="company.name", children}) => {
     const data = useDatasource({resource, filters: {sort: defaultSort}})
     const value = useMemo(() => ({
         data,
@@ -35,7 +35,7 @@ const ExhibitorsDataContext = ({resource="report", defaultSort, children}) => {
     return (<ExhbitorsDataContextContainer.Provider value={value}>{children}</ExhbitorsDataContextContainer.Provider>)
 }
 
-const ExhibitorsListContext = ({defaultSort, children}) => {
+export const ExhibitorsListContext = ({defaultSort="company.name", children}) => {
     const [services, _setServices] = useState([])
     const [sort, _setSort] = useState(defaultSort)
     const [account, _setAccount] = useState(null)
