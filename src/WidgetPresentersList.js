@@ -48,10 +48,11 @@ const WidgetPresenters = () => {
                 <TableHead>
                   <TableRow>
                     <TableCell align="center">Time</TableCell>
-                    <TableCell align="center">Name</TableCell>
-                    <TableCell align="center">Company</TableCell>
-                    <TableCell align="center">Position</TableCell>
-                    
+                    <TableCell align="left">Name</TableCell>
+                    <TableCell align="left">Position</TableCell>
+                    <TableCell align="left">Company</TableCell>
+               
+                    <TableCell align="left">Presentation title</TableCell>
                     <TableCell align="center">Avatar</TableCell>
                     <TableCell align="center">Logotype</TableCell>
                   </TableRow>
@@ -62,9 +63,11 @@ const WidgetPresenters = () => {
                           <TableCell  align="center" component="th" scope="row">
                             <Typography variant="h6">{row.presentation_time}</Typography>
                           </TableCell>
-                          <TableCell align="center">{row.presenter}</TableCell>
-                          <TableCell align="center">{row.cname2}</TableCell>
-                          <TableCell align="center">{row.position}</TableCell>
+                          <TableCell align="left">{row.presenter}</TableCell>
+                          <TableCell align="left">{row.position}</TableCell>
+                          <TableCell align="left">{row.cname2}</TableCell>
+                      
+                          <TableCell align="left">{row.presentation_title}</TableCell>
                           <TableCell align="center"><GfxAssetLink src={row.avatar_cdn} /></TableCell>
                           <TableCell align="center"><GfxAssetLink src={row.logotype_cdn} /></TableCell>
                          
