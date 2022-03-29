@@ -9,6 +9,8 @@ import {
   makeStyles
 } from 'eventjuicer-site-components'
 
+import {useRouter} from 'next/router'
+
 const useStyles = makeStyles(theme => ({
 
       avatarContainerFluid: {
@@ -28,7 +30,7 @@ const useStyles = makeStyles(theme => ({
 const WidgetPresentersBrands = () => {
 
 const classes = useStyles();
-
+const router = useRouter()
 const presenters = useDatasource({resource: "presenters"}) 
 
 return ( <Grid container spacing={0}>{(presenters || []).map(presenter => {
@@ -44,7 +46,7 @@ return ( <Grid container spacing={0}>{(presenters || []).map(presenter => {
         <Avatar variant="square" src={ resizeCloudinaryImage(logotype, 600, 300) } classes={{
         root: classes.avatarContainerFluid,
         img: classes.avatarImg
-        }}/>
+        }} onClick={() => router.push(`/presenters/${presenter.id}`)}/>
 
       </Grid>);
 
