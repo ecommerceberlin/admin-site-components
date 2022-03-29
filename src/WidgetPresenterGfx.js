@@ -8,6 +8,7 @@ import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
 import Grid from '@material-ui/core/Grid'
+import Alert from '@material-ui/lab/Alert'
 
 
 const squareSmaller = (id, template='') => {
@@ -59,6 +60,7 @@ const WidgetPresenterGfx = ({id}) => {
         vertical(id, "teh21_tmpl_spkr_vert1")
     ]
 
+    const link = `https://${process.env.NEXT_PUBLIC_PROJECT}/speakers/${id}`
 
   return (
 
@@ -68,6 +70,11 @@ const WidgetPresenterGfx = ({id}) => {
     <Typography variant="h3">{presenter}</Typography>
     <Typography variant="subtitle1" gutterBottom>{position} {cname2}</Typography>
     <Typography variant="body1">{bio}</Typography>
+
+    <Box mt={2} mb={2}>
+    <Alert><a href={link} target="_blank">{link}</a></Alert>
+    </Box>
+
     </Box>
 
     <Divider />
