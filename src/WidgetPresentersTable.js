@@ -10,7 +10,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper'
-
+import Link from 'next/link'
 
 const GfxAssetLink = ({src}) => {
 
@@ -24,7 +24,7 @@ const GfxAssetLink = ({src}) => {
 }
 
 
-const WidgetPresenters = () => {
+const WidgetPresentersTable = () => {
 
     const datasource = useDatasource({
         resource: "presenters"
@@ -59,11 +59,11 @@ const WidgetPresenters = () => {
                 </TableHead>
                 <TableBody>
                   {rows.map((row) => (
-                        <TableRow key={row.name}>
+                        <TableRow key={row.id}>
                           <TableCell  align="center" component="th" scope="row">
                             <Typography variant="h6">{row.presentation_time}</Typography>
                           </TableCell>
-                          <TableCell align="left">{row.presenter}</TableCell>
+                          <TableCell align="left"><Link href={`/presenters/${row.id}`}>{row.presenter}</Link></TableCell>
                           <TableCell align="left">{row.position}</TableCell>
                           <TableCell align="left">{row.cname2}</TableCell>
                       
@@ -83,4 +83,4 @@ const WidgetPresenters = () => {
     })
 }
 
-export default WidgetPresenters
+export default WidgetPresentersTable
