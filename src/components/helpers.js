@@ -1,6 +1,14 @@
 
 import {map} from 'eventjuicer-site-components'
 
+import {Cloudinary} from "@cloudinary/url-gen";
+
+const createCloudinaryInstance = () => new Cloudinary({
+    cloud: {
+      cloudName: 'eventjuicer'
+    }
+});
+
 export const reducer = (acc, currentValue) => acc + currentValue.quantity;
 export const howManyBooths = (purchases) => purchases? purchases.filter(item => item.role=="exhibitor").length: 0
 export const howManyCatering = (purchases) => purchases? purchases.filter(item => item.id == 1776).reduce(reducer, 0): 0
@@ -47,3 +55,39 @@ export const findExhibitorsByTicketIds = (data = [], checked=[]) => {
 
 
 export const filterExhibitorByTicketsIds = (item = {}, checked=[]) => item.purchases.some(ticket => checked.includes(ticket.id))
+
+
+
+
+
+
+
+
+
+export const cloudinaryAddText = ({asset_id, content="test", height, width, text_gravity="center", text_color="#fff", text_xy=[0,0], text_size=40, format}) => {
+
+    const myImage = createCloudinaryInstance().image(asset_id);
+    const [x,y] = text_xy
+    
+    myImage.overlay(
+      source(
+        text(content, new TextStyle('Arial', text_size)
+        .fontWeight('bold'))
+        .textColor(text_color)
+      )
+      .position(new Position().gravity(compass(text_gravity)).offsetX(x).offsetY(y)) 
+    )
+
+
+
+    if(parseInt(height) && parseInt(width)){
+      myImage.resize(fill().width(width).height(height))
+    }
+
+    if(format){
+      myImage.format(format)
+    }
+
+    return myImage
+
+}
