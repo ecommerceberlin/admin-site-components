@@ -32,7 +32,18 @@ const vertical = (id, template='') => {
     
 };
 
+
+const email = (id, template='') => {
+    
+    const avatarTrans = `c_fill,h_200,w_200,q_95,r_max`;
+    const templateTrans = `g_center,x_150,y_0`;
+    const logotypeTrans = `c_fit,g_center,w_250,h_150,x_125,y_0`;
   
+    return `https://res.cloudinary.com/eventjuicer/image/upload/${avatarTrans}/${templateTrans},u_${template}/${logotypeTrans},l_p_${id}_logotype/p_${id}_avatar.png`;
+    
+};
+
+
 
 
 const WidgetPresenterGfx = ({id}) => {
@@ -57,7 +68,8 @@ const WidgetPresenterGfx = ({id}) => {
         getPresenterOgImage(data, "template_teh21_exhibitor_pl"),
         squareSmaller(id, "teh21_tmpl_spkr_sq2"),
         getPresenterFbAd(data, "1080_white_rect"),
-        vertical(id, "teh21_tmpl_spkr_vert1")
+        vertical(id, "teh21_tmpl_spkr_vert1"),
+        email(id, "bg_600_250_white")
     ]
 
     const link = `https://${process.env.NEXT_PUBLIC_PROJECT}/speakers/${id}`
@@ -90,7 +102,7 @@ const WidgetPresenterGfx = ({id}) => {
     <Box mt={4}>
 
             <Grid container spacing={2}>{images.map(image => <Grid item key={image}><Box m={1}>
-            <img src={image} alt="" style={{ maxHeight: 300,  maxWidth: 300 }} />
+            <img src={image} alt="" style={{ maxHeight: 300,  maxWidth: 300, border: "1px solid #000000" }} />
             </Box></Grid>)}</Grid>
 
     
