@@ -1,7 +1,7 @@
 import React, {useState, useReducer, useContext, useEffect, useCallback, useMemo} from 'react'
 import {useDatasource, isEmpty, keyBy, processArrayData} from 'eventjuicer-site-components'
 import {filterExhibitorByTicketsIds} from './helpers'
-
+import { uniqBy } from 'lodash';
 
 const ExhbitorsDataContextContainer = React.createContext();
 const ExhbitorsListContextContainer = React.createContext();
@@ -98,22 +98,27 @@ export const useData = () => {
     const {filtered, account, services, sort} = useExhibitorsListContext()
     const {setFiltered} =  useExhibitorsListUpdaterContext()
 
-    const filters = []
-    /**if account chosen do not use search */
-    const finalData = !isEmpty(account) ? data: filtered
-    if(!isEmpty(account)){
-        filters.push(["account", account])
-    }
-    if(!isEmpty(services)){
-        filters.push((item) => filterExhibitorByTicketsIds(item, services))
-    }
-    const items = processArrayData(finalData, {sort, filter: filters})
-
-     useEffect(()=>{
+    useEffect(()=>{
         if(isEmpty(filtered)){
             setFiltered(data)
         }
     }, [data, filtered])
+
+
+
+
+    const filter = []
+    /**if account chosen do not use search */
+    const finalData = !isEmpty(account) ? data: filtered
+    if(!isEmpty(account)){
+        filter.push(["account", account])
+    }
+    if(!isEmpty(services)){
+        filter.push((item) => filterExhibitorByTicketsIds(item, services))
+    }
+    const items = uniqBy(processArrayData(finalData, {sort, filter}), "company_id")
+
+  
 
     return useMemo(()=>{
         return {

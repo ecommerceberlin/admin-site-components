@@ -30,12 +30,12 @@ const ExhibitorList = ({roles}) => {
         </Grid>
        {/* <Grid container>
            <Grid item>
-               <ExhibitorPerformance active={flags.assessment} />
-               <ExhibitorProfileErrors active={flags.assessment} />
+               <ExhibitorPerformance active={true} />
+               <ExhibitorProfileErrors active={true} />
             </Grid>
            <Grid item>
-                <ExhibitorRealAssignments active={flags.assignment} />
-                <ExhibitorPurchases roles={roles} active={flags.assignment} />
+                <ExhibitorRealAssignments active={true} />
+                <ExhibitorPurchases roles={roles} active={true} />
            </Grid>
        </Grid> */}
        </Box>

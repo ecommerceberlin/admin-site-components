@@ -10,6 +10,8 @@ const ExhibitorDetails = ({active}) => {
         return null
     }
 
+    console.log(data)
+
     const {purchases, reps} = data
     return <Alert type="info" content={<>Catering: <strong>{cateringReal(purchases, reps)}</strong> {` `}
     Parking: <strong>{parkingReal(purchases)}</strong></>} />

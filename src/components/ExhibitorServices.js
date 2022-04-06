@@ -4,53 +4,68 @@ import {
 } from 'eventjuicer-site-components'
 import { useExhibitorContext } from './ExhibitorContext';
 
-// import Avatar from '@material-ui/core/Avatar';
 import useStyles from './styles';
-// import PersonIcon from '@material-ui/icons/Person';
-// import Badge from '@material-ui/core/Badge';
-// import Button from '@material-ui/core/Button';
+import Badge from '@material-ui/core/Badge';
 import TvIcon from '@material-ui/icons/Tv';
 import TextureIcon from '@material-ui/icons/Texture';
 import StoreIcon from '@material-ui/icons/Store';
 import PowerIcon from '@material-ui/icons/Power';
 import EventSeatIcon from '@material-ui/icons/EventSeat';
 import CategoryIcon from '@material-ui/icons/Category';
+import FlashOnIcon from '@material-ui/icons/FlashOn';
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+import NoteIcon from '@material-ui/icons/Note';
+import RestaurantMenuIcon from '@material-ui/icons/RestaurantMenu';
+import DirectionsCarIcon from '@material-ui/icons/DirectionsCar';
+import ClearIcon from '@material-ui/icons/Clear';
 
-const findByPartialName = (arr, name) => arr.find(item => item.includes(name))
+
+const labelToIcon = {
+    display: TvIcon,
+    flooring: TextureIcon,
+    carpet: TextureIcon,
+    fullprint: StoreIcon,
+    osb: StoreIcon,
+    electricity: PowerIcon,
+    highvoltage: FlashOnIcon,
+    chair: EventSeatIcon,
+    table: FiberManualRecordIcon,
+    rack: CategoryIcon,
+    leaflet: NoteIcon,
+    catering: RestaurantMenuIcon,
+    parking: DirectionsCarIcon,
+    clearspace: ClearIcon
+}
+
+const findByPartialName = (obj, name) => {
+    const lookup = Object.keys(obj).find(item => item.includes(name))
+    return lookup? obj[lookup]: 0;
+}
  
+const IconWithBadge = ({icon, sum}) => {
+
+    const classes = useStyles()
+    
+    return (<Badge className={classes.icon} badgeContent={sum>1? sum: 0} color="primary">{React.createElement(icon)}</Badge>)
+} 
+
 const ExhibitorServices = ( ) => {
 
     const {id, data, services} = useExhibitorContext()
-    const classes = useStyles()
 
     if(isEmpty(data)) return null
     
+
     const icons = []
 
-    if(findByPartialName(services, "display")){
-        icons.push( <TvIcon key="a" className={classes.icon} />)
-    }
+    Object.keys(labelToIcon).forEach(partialName => {
 
-    if(findByPartialName(services, "flooring") || findByPartialName(services, "carpet")){
-        icons.push( <TextureIcon key="b" className={classes.icon} />)
-    }
+        const sum = findByPartialName(services, partialName)
+        if( sum ){
+            icons.push( <IconWithBadge key={partialName} icon={labelToIcon[partialName]} sum={sum} /> )
+        }
 
-    if(findByPartialName(services, "fullprint") || findByPartialName(services, "osb")){
-        icons.push( <StoreIcon key="c" className={classes.icon} />)
-    }
-
-    if(findByPartialName(services, "electricity") || findByPartialName(services, "highvoltage")){
-        icons.push( <PowerIcon key="d" className={classes.icon} />)
-    }
-
-    if(findByPartialName(services, "chair")){
-        icons.push( <EventSeatIcon key="e" className={classes.icon} />)
-    }
-
-    if(findByPartialName(services, "rack")){
-        icons.push( <CategoryIcon key="f" className={classes.icon}  />)
-    }
-
+    })
 
     return icons
 
