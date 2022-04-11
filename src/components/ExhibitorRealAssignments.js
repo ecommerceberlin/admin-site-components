@@ -1,21 +1,32 @@
 
-import { Alert, makeStyles } from 'eventjuicer-site-components';
+import { Alert, makeStyles, classNames } from 'eventjuicer-site-components';
 import {cateringReal, parkingReal, findByPartialName} from './helpers'
 import {useExhibitorContext} from './ExhibitorContext'
-import {red} from '@material-ui/core/colors'
+import {red, teal} from '@material-ui/core/colors'
 
 const useStyles = makeStyles(theme => ({
-    red: {
-        backgroundColor: red[200],
+    assignment: {
         borderWidth: 1,
-        borderColor: red[700],
         borderStyle: "solid",
-        fontWeight: 900,
+        fontWeight: 500,
         padding: 4,
         "& span": {
             marginRight: 10
+        },
+        "& strong": {
+            fontWeight: 900,
+            fontSize: "120%"
         }
+    },
+    welcomepacks: {
+        backgroundColor: red[200],
+        borderColor: red[700],
+    },
+    event: {
+        backgroundColor: teal[200],
+        borderColor: teal[700],
     }
+
 }))
 
 
@@ -40,12 +51,17 @@ const ExhibitorDetails = () => {
         howManyChairs = 0
     }
 
-    return <span className={classes.red}>
-        <span>Cateringowe <strong>{howManyCateringVouchers}</strong></span>
-        <span>Parkingowe <strong>{howManyParkingCards}</strong></span> 
-        <span>Stoły <strong>{howManyTables}</strong></span> 
-        <span>Krzesła <strong>{howManyChairs}</strong></span> 
-    </span>
+    return <span>
+            <span className={classNames(classes.assignment, classes.welcomepacks )}>
+                <span>Cateringowe <strong>{howManyCateringVouchers}</strong></span>
+                <span>Parkingowe <strong>{howManyParkingCards}</strong></span> 
+            </span>
+            <span className={classNames(classes.assignment, classes.event )}>
+                <span>Stoły <strong>{howManyTables}</strong></span> 
+                <span>Krzesła <strong>{howManyChairs}</strong></span> 
+            </span>
+        </span>
+       
  
     // console.log(data)
 
