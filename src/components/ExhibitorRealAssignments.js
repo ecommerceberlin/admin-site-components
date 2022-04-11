@@ -35,12 +35,11 @@ const ExhibitorDetails = () => {
     const classes = useStyles()
     const {data:{reps}, services, boothIds} = useExhibitorContext()
 
-    const cateringRealMax = (boothIds.length * 4) + findByPartialName(services, "catering");
-    let howManyCateringVouchers = reps > cateringRealMax? cateringRealMax: reps;
-    if(howManyCateringVouchers < 3){
-        howManyCateringVouchers = 2
-    }
 
+    const cateringPurchased = findByPartialName(services, "catering");
+    const cateringOfferedMax = boothIds.length * 4
+    const howManyCateringVouchers = reps > cateringOfferedMax? cateringOfferedMax + cateringPurchased: Math.max(1, reps) + cateringPurchased
+   
     const howManyParkingCards = (boothIds.length * 1) + findByPartialName(services, "parking");
 
     let howManyChairs = (boothIds.length * 2) + findByPartialName(services, "chair");

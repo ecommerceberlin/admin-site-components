@@ -1,6 +1,6 @@
 
 import {map} from 'eventjuicer-site-components'
-
+import { groupBy, sumBy, mapValues } from 'lodash';
 import {Cloudinary} from "@cloudinary/url-gen";
 
 const createCloudinaryInstance = () => new Cloudinary({
@@ -56,17 +56,6 @@ export const findExhibitorsByTicketIds = (data = [], checked=[]) => {
 
 export const filterExhibitorByTicketsIds = (item = {}, checked=[]) => item.purchases.some(ticket => checked.includes(ticket.id))
 
-
-
-export const findByPartialName = (obj, name) => {
-  const lookup = Object.keys(obj).find(item => item.includes(name))
-  return lookup? obj[lookup]: 0;
-}
-
-
-
-
-
 export const cloudinaryAddText = ({asset_id, content="test", height, width, text_gravity="center", text_color="#fff", text_xy=[0,0], text_size=40, format}) => {
 
     const myImage = createCloudinaryInstance().image(asset_id);
@@ -94,3 +83,22 @@ export const cloudinaryAddText = ({asset_id, content="test", height, width, text
     return myImage
 
 }
+
+
+/**
+ * NEW
+ */
+
+
+export const getTicketName = (item) => item.translation_asset_id || item.___name
+
+
+export const findByPartialName = (obj, name) => {
+  const lookup = Object.keys(obj).find(item => item.includes(name))
+  return lookup? obj[lookup]: 0;
+}
+
+export const servicesGroupedByName = (purchases) => Array.isArray(purchases) ? groupBy(purchases.filter(item => item.role.includes("service")), getTicketName): {}
+
+
+export const servicesSummedUp = (purchases) => mapValues(servicesGroupedByName(purchases), arr => sumBy(arr, "quantity"))
