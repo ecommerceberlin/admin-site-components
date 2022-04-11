@@ -1,6 +1,6 @@
 {
     "name": "eventjuicer-admin-site-components",
-    "version": "1.0.19",
+    "version": "1.0.20",
     "main": "src/index.js",
     "repository": {
         "type": "git",
