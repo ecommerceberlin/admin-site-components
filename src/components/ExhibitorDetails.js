@@ -10,6 +10,7 @@ import ExhibitorLocation from './ExhibitorLocation'
 import ExhibitorAccount from './ExhibitorAccount';
 import ExhibitorServices from './ExhibitorServices'
 import ExhibitorReps from './ExhibitorReps'
+import ExhibitorRealAssignments from './ExhibitorRealAssignments'
 
 const ExhibitorDetails = () => {
 
@@ -37,6 +38,10 @@ const ExhibitorDetails = () => {
 
             <Grid item>
               <ExhibitorServices />
+            </Grid>
+
+            <Grid item>
+              <ExhibitorRealAssignments />
             </Grid>
 
         </Grid>

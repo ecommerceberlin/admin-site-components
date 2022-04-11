@@ -58,7 +58,10 @@ export const filterExhibitorByTicketsIds = (item = {}, checked=[]) => item.purch
 
 
 
-
+export const findByPartialName = (obj, name) => {
+  const lookup = Object.keys(obj).find(item => item.includes(name))
+  return lookup? obj[lookup]: 0;
+}
 
 
 

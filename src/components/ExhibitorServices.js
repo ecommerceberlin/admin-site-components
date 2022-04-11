@@ -3,7 +3,7 @@ import {
   isEmpty,
 } from 'eventjuicer-site-components'
 import { useExhibitorContext } from './ExhibitorContext';
-
+import {findByPartialName} from './helpers'
 import useStyles from './styles';
 import Badge from '@material-ui/core/Badge';
 import TvIcon from '@material-ui/icons/Tv';
@@ -37,10 +37,7 @@ const labelToIcon = {
     clearspace: ClearIcon
 }
 
-const findByPartialName = (obj, name) => {
-    const lookup = Object.keys(obj).find(item => item.includes(name))
-    return lookup? obj[lookup]: 0;
-}
+
  
 const IconWithBadge = ({icon, sum}) => {
 
