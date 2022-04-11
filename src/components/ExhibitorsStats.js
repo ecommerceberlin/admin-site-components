@@ -1,38 +1,44 @@
 import {
   useDatasource,
-  Alert
+  Alert,
+  Box
 } from 'eventjuicer-site-components';
 
-import {cateringReal, parkingReal} from './helpers'
-import { uniqBy } from 'lodash';
-import {servicesSummedUp, findByPartialName} from './helpers'
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper'
 
+import {countTotals} from './helpers'
 
   const AdminReportStats = () => {
   
     const data = useDatasource({resource: "report"})
-    const unique = uniqBy(data, "company_id")
-    
-    const countTotals = () => {
-      let catering = 0;
-      let parking = 0;
+    const totals = countTotals(data);
   
-      unique.map(company => {
+    return (
+      <TableContainer component={Paper}>
+      <Table aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell align="left">Service</TableCell>
+            <TableCell align="left">Total</TableCell>
+          </TableRow>
+        </TableHead>
+         <TableBody>
+         {Object.keys(totals).map(total =>  <TableRow>
+           <TableCell>{total}</TableCell>
+           <TableCell> {totals[total]} </TableCell>
+           </TableRow>)}
+          </TableBody>
+        </Table>
+        </TableContainer>
+    )
 
-        const _servicesSummedUp = servicesSummedUp(company.purchases)
-        
-        console.log(_servicesSummedUp)
-        catering = catering + cateringReal(company.purchases, company.reps);
-        parking = parking + parkingReal(company.purchases)
-      })
   
-      return {catering, parking}
-    }
-  
-    const totals = countTotals();
-  
-  
-   return (<Alert content={<div>Total catering: {totals.catering}{` `}Total parking: {totals.parking}{` `}</div>} />)
   
   }
   

@@ -1,7 +1,9 @@
 
 import {map} from 'eventjuicer-site-components'
-import { groupBy, sumBy, mapValues } from 'lodash';
+import { groupBy, sumBy, mapValues, uniqBy } from 'lodash';
 import {Cloudinary} from "@cloudinary/url-gen";
+
+
 
 const createCloudinaryInstance = () => new Cloudinary({
     cloud: {
@@ -126,3 +128,32 @@ export const servicesRealAssignments = (purchases, reps) => {
 
 }
 
+
+export function sumObjectsByKey(...objs) {
+  return objs.reduce((a, b) => {
+    for (let k in b) {
+      if (b.hasOwnProperty(k))
+        a[k] = (a[k] || 0) + b[k];
+    }
+    return a;
+  }, {});
+}
+
+export const countTotals = (data) => {
+  
+  const unique = uniqBy(data, "company_id")
+
+  let aggregated = {
+    catering: 0,
+    parking: 0,
+    tables: 0,
+    chairs: 0,
+  }
+
+  unique.map(company => {
+    const agg = servicesRealAssignments(company.purchases, company.reps)
+    aggregated = sumObjectsByKey(aggregated, agg)
+  })
+
+  return aggregated
+}
