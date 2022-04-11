@@ -1,6 +1,6 @@
 
 import { Alert, makeStyles, classNames } from 'eventjuicer-site-components';
-import {cateringReal, parkingReal, findByPartialName} from './helpers'
+import {servicesRealAssignments} from './helpers'
 import {useExhibitorContext} from './ExhibitorContext'
 import {red, teal} from '@material-ui/core/colors'
 
@@ -33,40 +33,21 @@ const useStyles = makeStyles(theme => ({
 const ExhibitorDetails = () => {
 
     const classes = useStyles()
-    const {data:{reps}, services, boothIds} = useExhibitorContext()
+    const {data:{reps, purchases}} = useExhibitorContext()
 
-
-    const cateringPurchased = findByPartialName(services, "catering");
-    const cateringOfferedMax = boothIds.length * 4
-    const howManyCateringVouchers = reps > cateringOfferedMax? cateringOfferedMax + cateringPurchased: Math.max(1, reps) + cateringPurchased
-   
-    const howManyParkingCards = (boothIds.length * 1) + findByPartialName(services, "parking");
-
-    let howManyChairs = (boothIds.length * 2) + findByPartialName(services, "chair");
-    let howManyTables = (boothIds.length * 1) + findByPartialName(services, "table");
-  
-    if(findByPartialName(services, "clearspace") || findByPartialName(services, "fullprint") || findByPartialName(services, "osb") ){
-        howManyTables = 0
-        howManyChairs = 0
-    }
-
-    return <span>
+    const {catering, parking, tables, chairs} = servicesRealAssignments(purchases, reps)
+    
+    return (<span>
             <span className={classNames(classes.assignment, classes.welcomepacks )}>
-                <span>Cateringowe <strong>{howManyCateringVouchers}</strong></span>
-                <span>Parkingowe <strong>{howManyParkingCards}</strong></span> 
+                <span>Cateringowe <strong>{catering}</strong></span>
+                <span>Parkingowe <strong>{parking}</strong></span> 
             </span>
             <span className={classNames(classes.assignment, classes.event )}>
-                <span>Stoły <strong>{howManyTables}</strong></span> 
-                <span>Krzesła <strong>{howManyChairs}</strong></span> 
+                <span>Stoły <strong>{tables}</strong></span> 
+                <span>Krzesła <strong>{chairs}</strong></span> 
             </span>
-        </span>
+        </span>)
        
- 
-    // console.log(data)
-
-
-    // return <Alert type="info" content={<>Catering: <strong>{cateringReal(purchases, reps)}</strong> {` `}
-    // Parking: <strong>{parkingReal(purchases)}</strong></>} />
 }
 
 

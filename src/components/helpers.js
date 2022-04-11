@@ -11,8 +11,8 @@ const createCloudinaryInstance = () => new Cloudinary({
 
 export const reducer = (acc, currentValue) => acc + currentValue.quantity;
 export const howManyBooths = (purchases) => purchases? purchases.filter(item => item.role=="exhibitor").length: 0
-export const howManyCatering = (purchases) => purchases? purchases.filter(item => item.id == 1776).reduce(reducer, 0): 0
-export const howManyParking = (purchases) => purchases? purchases.filter(item => item.id == 1780).reduce(reducer, 0): 0
+export const howManyCatering = (purchases) => purchases? purchases.filter(item => item.id == 2003).reduce(reducer, 0): 0
+export const howManyParking = (purchases) => purchases? purchases.filter(item => item.id == 2006).reduce(reducer, 0): 0
 
 export const cateringReal = (purchases, reps) => {
 
@@ -100,5 +100,29 @@ export const findByPartialName = (obj, name) => {
 
 export const servicesGroupedByName = (purchases) => Array.isArray(purchases) ? groupBy(purchases.filter(item => item.role.includes("service")), getTicketName): {}
 
-
 export const servicesSummedUp = (purchases) => mapValues(servicesGroupedByName(purchases), arr => sumBy(arr, "quantity"))
+
+export const servicesRealAssignments = (purchases, reps) => {
+
+  const _howManyBooths = howManyBooths(purchases)
+  const _servicesSummedUp = servicesSummedUp(purchases)
+  const cateringPurchased = findByPartialName(_servicesSummedUp, "catering");
+  const cateringOfferedMax = _howManyBooths * 4
+
+  let howManyChairs = (_howManyBooths * 2) + findByPartialName(_servicesSummedUp, "chair");
+  let howManyTables = (_howManyBooths * 1) + findByPartialName(_servicesSummedUp, "table");
+
+  if(findByPartialName(_servicesSummedUp, "clearspace") || findByPartialName(_servicesSummedUp, "fullprint") || findByPartialName(_servicesSummedUp, "osb") ){
+    howManyTables = 0
+    howManyChairs = 0
+  }
+
+  return {
+    catering: reps > cateringOfferedMax? cateringOfferedMax + cateringPurchased: Math.max(1, reps) + cateringPurchased,
+    parking: (_howManyBooths * 1) + findByPartialName(_servicesSummedUp, "parking"),
+    tables: howManyTables,
+    chairs: howManyChairs
+  }
+
+}
+

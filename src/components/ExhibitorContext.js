@@ -1,8 +1,7 @@
 import React, {useContext, useMemo} from 'react'
 import {useExhibitorsDataContext} from './ExhibitorsListContext'
 import {map} from 'eventjuicer-site-components'
-import { groupBy, sumBy, mapValues } from 'lodash';
-import {servicesSummedUp} from './helpers'
+import {servicesSummedUp, howManyBooths} from './helpers'
 
 const ExhbitorContextContainer = React.createContext({
     data: {},
@@ -11,7 +10,7 @@ const ExhbitorContextContainer = React.createContext({
 
 
 const ExhbitorContext = ({id, children}) => {
-    
+
     const {dataById} = useExhibitorsDataContext()
     const data = dataById[id] || {}
     const hasPurchases = "purchases" in data && Array.isArray(data.purchases) && data.purchases.length
@@ -22,6 +21,7 @@ const ExhbitorContext = ({id, children}) => {
         id,
         data,
         services: hasPurchases? servicesSummedUp(data.purchases): {},
+        howManyBooths: howManyBooths(data.purchases),
         boothIds: hasPurchases? map(data.purchases, 'formdata.id').filter(v => v && v.length): [],
         boothNames: hasPurchases? map(data.purchases, 'formdata.ti').filter(v => v && v.length).join(", "): ""
     });

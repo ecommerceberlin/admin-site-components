@@ -1,22 +1,29 @@
 import {
-    useDatasource,
-    Alert
-  } from 'eventjuicer-site-components';
-  
-  
-  import {cateringReal, parkingReal} from './helpers'
+  useDatasource,
+  Alert
+} from 'eventjuicer-site-components';
+
+import {cateringReal, parkingReal} from './helpers'
+import { uniqBy } from 'lodash';
+import {servicesSummedUp, findByPartialName} from './helpers'
+
 
   const AdminReportStats = () => {
   
     const data = useDatasource({resource: "report"})
+    const unique = uniqBy(data, "company_id")
     
     const countTotals = () => {
       let catering = 0;
       let parking = 0;
   
-      data.map(exhibitor => {
-        catering = catering + cateringReal(exhibitor.purchases, exhibitor.reps);
-        parking = parking + parkingReal(exhibitor.purchases)
+      unique.map(company => {
+
+        const _servicesSummedUp = servicesSummedUp(company.purchases)
+        
+        console.log(_servicesSummedUp)
+        catering = catering + cateringReal(company.purchases, company.reps);
+        parking = parking + parkingReal(company.purchases)
       })
   
       return {catering, parking}
