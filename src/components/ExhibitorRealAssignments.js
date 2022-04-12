@@ -33,7 +33,8 @@ const useStyles = makeStyles(theme => ({
 const ExhibitorDetails = () => {
 
     const classes = useStyles()
-    const {data:{reps, purchases}} = useExhibitorContext()
+    const {data:{reps, purchases, profile}} = useExhibitorContext()
+    const {carpet_color} = profile
 
     const {catering, parking, tables, chairs} = servicesRealAssignments(purchases, reps)
     
@@ -45,7 +46,11 @@ const ExhibitorDetails = () => {
             <span className={classNames(classes.assignment, classes.event )}>
                 <span>Stoły <strong>{tables}</strong></span> 
                 <span>Krzesła <strong>{chairs}</strong></span> 
+               
             </span>
+            {carpet_color && <span className={classNames(classes.assignment )}>
+            {carpet_color}
+            </span>}
         </span>)
        
 }
