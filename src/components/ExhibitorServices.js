@@ -18,6 +18,7 @@ import NoteIcon from '@material-ui/icons/Note';
 import RestaurantMenuIcon from '@material-ui/icons/RestaurantMenu';
 import DirectionsCarIcon from '@material-ui/icons/DirectionsCar';
 import ClearIcon from '@material-ui/icons/Clear';
+import LocalBarIcon from '@material-ui/icons/LocalBar';
 
 
 const labelToIcon = {
@@ -34,7 +35,8 @@ const labelToIcon = {
     leaflet: NoteIcon,
     catering: RestaurantMenuIcon,
     parking: DirectionsCarIcon,
-    clearspace: ClearIcon
+    clearspace: ClearIcon,
+    party: LocalBarIcon
 }
 
 
