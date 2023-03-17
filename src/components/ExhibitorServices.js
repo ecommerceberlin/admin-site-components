@@ -48,7 +48,7 @@ const IconWithBadge = ({icon, sum}) => {
     return (<Badge className={classes.icon} badgeContent={sum>1? sum: 0} color="primary">{React.createElement(icon)}</Badge>)
 } 
 
-const ExhibitorServices = ( ) => {
+const ExhibitorServicesIcons = ( ) => {
 
     const {id, data, services} = useExhibitorContext()
 
@@ -68,6 +68,11 @@ const ExhibitorServices = ( ) => {
 
     return icons
 
+}
+
+const ExhibitorServices = () => {
+
+    return <ExhibitorServicesIcons />
 }
 
 export default ExhibitorServices

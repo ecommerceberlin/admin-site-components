@@ -65,10 +65,10 @@ const WidgetPresenterGfx = ({id}) => {
     } = data
 
     const images = [
-        getPresenterOgImage(data, "template_teh22_exhibitor_pl"),
-        squareSmaller(id, "teh22_tmpl_spkr_sq1"),
+        getPresenterOgImage(data, "template_teh23_exhibitor_pl"),
+        squareSmaller(id, "teh23_tmpl_spkr_sq1"),
         getPresenterFbAd(data, "1080_white_rect"),
-        vertical(id, "teh22_tmpl_spkr_vert1"),
+        vertical(id, "teh23_tmpl_spkr_vert1"),
         email(id, "bg_600_250_white")
     ]
 
