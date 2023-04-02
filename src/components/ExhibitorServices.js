@@ -19,7 +19,9 @@ import RestaurantMenuIcon from '@material-ui/icons/RestaurantMenu';
 import DirectionsCarIcon from '@material-ui/icons/DirectionsCar';
 import ClearIcon from '@material-ui/icons/Clear';
 import LocalBarIcon from '@material-ui/icons/LocalBar';
-
+import DeckIcon from '@material-ui/icons/Deck';
+import CropSquareIcon from '@material-ui/icons/CropSquare';
+import AddToQueueIcon from '@material-ui/icons/AddToQueue';
 
 const labelToIcon = {
     display: TvIcon,
@@ -36,7 +38,10 @@ const labelToIcon = {
     catering: RestaurantMenuIcon,
     parking: DirectionsCarIcon,
     clearspace: ClearIcon,
-    party: LocalBarIcon
+    party: LocalBarIcon,
+    furniture: DeckIcon,
+    counter: CropSquareIcon,
+    dis75play: AddToQueueIcon,
 }
 
 
