@@ -1,7 +1,8 @@
 import {
   useDatasource,
   Alert,
-  Box
+  Box,
+  useSettings
 } from 'eventjuicer-site-components';
 
 import Table from '@material-ui/core/Table';
@@ -17,8 +18,9 @@ import {countTotals} from './helpers'
   const AdminReportStats = () => {
   
     const data = useDatasource({resource: "report"})
-    const totals = countTotals(data);
-  
+    const {assign_free_furniture} = useSettings("staff.exhibitor.aggregates", {})
+    const totals = countTotals(data, assign_free_furniture);
+
     return (
       <TableContainer component={Paper}>
       <Table aria-label="simple table">
@@ -29,7 +31,7 @@ import {countTotals} from './helpers'
           </TableRow>
         </TableHead>
          <TableBody>
-         {Object.keys(totals).map(total =>  <TableRow>
+         {Object.keys(totals).map(total =>  <TableRow key={total}>
            <TableCell>{total}</TableCell>
            <TableCell> {totals[total]} </TableCell>
            </TableRow>)}

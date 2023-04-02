@@ -104,26 +104,56 @@ export const servicesGroupedByName = (purchases) => Array.isArray(purchases) ? g
 
 export const servicesSummedUp = (purchases) => mapValues(servicesGroupedByName(purchases), arr => sumBy(arr, "quantity"))
 
-export const servicesRealAssignments = (purchases, reps) => {
+export const servicesRealAssignments = (purchases, reps, assign_free_furniture=0) => {
+
+  const howManyFreeTablesPerBooth = 1;
+  const howManyFreeChairsPerBooth = 2;
+  const howManyFreeParkingPerBooth = 1;
+  const howManyFreeVouchersPerBooth = 4;
 
   const _howManyBooths = howManyBooths(purchases)
   const _servicesSummedUp = servicesSummedUp(purchases)
   const cateringPurchased = findByPartialName(_servicesSummedUp, "catering");
-  const cateringOfferedMax = _howManyBooths * 4
+  const defaultFurniture = findByPartialName(_servicesSummedUp, "default_furniture");
+  const tablesPurchased = findByPartialName(_servicesSummedUp, "table");
+  const chairsPurchased = findByPartialName(_servicesSummedUp, "chair");
+  const parkingPurchased = findByPartialName(_servicesSummedUp, "parking");
+  const fullprintArrangementPurchased =findByPartialName(_servicesSummedUp, "fullprint")
+  const osbArrangementPurchased = findByPartialName(_servicesSummedUp, "osb");
 
-  let howManyChairs = (_howManyBooths * 2) + findByPartialName(_servicesSummedUp, "chair");
-  let howManyTables = (_howManyBooths * 1) + findByPartialName(_servicesSummedUp, "table");
+  const cateringOfferedMax = howManyFreeVouchersPerBooth * _howManyBooths
 
-  if(findByPartialName(_servicesSummedUp, "clearspace") || findByPartialName(_servicesSummedUp, "fullprint") || findByPartialName(_servicesSummedUp, "osb") ){
+  let howManyTables = defaultFurniture <= _howManyBooths ? (defaultFurniture || +assign_free_furniture )  * howManyFreeTablesPerBooth + tablesPurchased: _howManyBooths * howManyFreeTablesPerBooth + tablesPurchased;
+  let howManyChairs = defaultFurniture <= _howManyBooths ? (defaultFurniture || +assign_free_furniture)  * howManyFreeChairsPerBooth + chairsPurchased: _howManyBooths * howManyFreeChairsPerBooth + chairsPurchased;
+
+  if(fullprintArrangementPurchased || osbArrangementPurchased ){
     howManyTables = 0
     howManyChairs = 0
   }
 
   return {
     catering: reps > cateringOfferedMax? cateringOfferedMax + cateringPurchased: Math.max(1, reps) + cateringPurchased,
-    parking: (_howManyBooths * 1) + findByPartialName(_servicesSummedUp, "parking"),
+    parking: (_howManyBooths * howManyFreeParkingPerBooth) + parkingPurchased,
     tables: howManyTables,
-    chairs: howManyChairs
+    chairs: howManyChairs,
+    default_furniture: defaultFurniture,
+
+    
+    fullprint: fullprintArrangementPurchased,
+    osb: osbArrangementPurchased,
+
+
+    counter: findByPartialName(_servicesSummedUp, "counter"),
+    carpet: findByPartialName(_servicesSummedUp, "carpet"),
+
+
+    electricity: findByPartialName(_servicesSummedUp, "electricity"),
+    highvoltage: findByPartialName(_servicesSummedUp, "highvoltage"),
+
+
+    display: findByPartialName(_servicesSummedUp, "display"),
+    dis75play: findByPartialName(_servicesSummedUp, "dis75play"),
+
   }
 
 }
@@ -139,19 +169,33 @@ export function sumObjectsByKey(...objs) {
   }, {});
 }
 
-export const countTotals = (data) => {
+export const countTotals = (data, assign_free_furniture) => {
   
   const unique = uniqBy(data, "company_id")
 
   let aggregated = {
+
     catering: 0,
     parking: 0,
     tables: 0,
     chairs: 0,
+
+    default_furniture: 0,
+    fullprint: 0,
+    osb: 0,
+    counter: 0,
+    carpet: 0,
+
+    electricity: 0,
+    highvoltage: 0,
+
+    display: 0,
+    dis75play: 0,
+
   }
 
   unique.map(company => {
-    const agg = servicesRealAssignments(company.purchases, company.reps)
+    const agg = servicesRealAssignments(company.purchases, company.reps, assign_free_furniture)
     aggregated = sumObjectsByKey(aggregated, agg)
   })
 

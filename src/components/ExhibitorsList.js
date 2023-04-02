@@ -34,7 +34,7 @@ const ExhibitorList = ({roles}) => {
                <ExhibitorProfileErrors active={true} />
             </Grid>
            <Grid item>
-                <ExhibitorRealAssignments active={true} />
+            
                 <ExhibitorPurchases roles={roles} active={true} />
            </Grid>
        </Grid> */}

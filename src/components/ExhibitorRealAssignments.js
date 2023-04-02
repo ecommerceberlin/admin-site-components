@@ -41,8 +41,10 @@ const ExhibitorRealAssignments = (props) => {
     const {data:{reps, purchases, profile}} = useExhibitorContext()
     const {carpet_color} = profile
     const settings = useSettings("aggregates", {})
+    const {assign_free_furniture} = useSettings("staff.exhibitor.aggregates", {})
     const { show_vouchers, show_furniture } = Object.assign({}, defaultProps, settings, props)
-    const {catering, parking, tables, chairs} = servicesRealAssignments(purchases, reps)
+
+    const {catering, parking, tables, chairs} = servicesRealAssignments(purchases, reps, assign_free_furniture)
     
     return (<span>
             
